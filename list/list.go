@@ -1,30 +1,28 @@
 package list
 
-import "fmt"
-
-type node struct {
-	next *node
-	data string
+type node[T any] struct {
+	next *node[T]
+	data T
 }
 
-type LinkedList struct {
-	head *node
+type LinkedList[T any] struct {
+	head *node[T]
 }
 
-func New(data string) LinkedList {
-	newNode := node{data: data, next: nil}
-	return LinkedList{head: &newNode}
+func New[T any](data T) LinkedList[T] {
+	newNode := node[T]{data: data, next: nil}
+	return LinkedList[T]{head: &newNode}
 }
 
-func (lst *LinkedList) AddNode(data string) {
-	newNode := node{next: lst.head, data: data}
+func (lst *LinkedList[T]) AddNode(data T) {
+	newNode := node[T]{next: lst.head, data: data}
 	lst.head = &newNode
 }
 
-func (lst *LinkedList) PrintNodeData() {
+func (lst *LinkedList[T]) ForEachNode(fn func(T)) {
 	currentNode := lst.head
 	for currentNode != nil {
-		fmt.Println(currentNode.data)
+		fn(currentNode.data)
 		currentNode = currentNode.next
 	}
 }
