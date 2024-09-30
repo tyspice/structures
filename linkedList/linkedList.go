@@ -7,21 +7,21 @@ type node struct {
 	data string
 }
 
-type linkedList struct {
+type LinkedList struct {
 	head *node
 }
 
-func NewLinkedList(data string) linkedList {
+func NewLinkedList(data string) LinkedList {
 	newNode := node{data: data, next: nil}
-	return linkedList{head: &newNode}
+	return LinkedList{head: &newNode}
 }
 
-func (lst *linkedList) AddNode(data string) {
+func (lst *LinkedList) AddNode(data string) {
 	newNode := node{next: lst.head, data: data}
 	lst.head = &newNode
 }
 
-func (lst *linkedList) PrintNodeData() {
+func (lst *LinkedList) PrintNodeData() {
 	currentNode := lst.head
 	for currentNode != nil {
 		fmt.Println(currentNode.data)
