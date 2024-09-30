@@ -1,7 +1,12 @@
 package main
 
-import "fmt"
+import "github.com/tyspice/data-structures/linkedList"
 
 func main() {
-	fmt.Println("hello data structures")
+	lst := linkedList.NewLinkedList("Hello")
+	lst.AddNode("snake")
+	lst.AddNode("poop")
+	lst.AddNode("chunder")
+	lst.AddNode("snook")
+	lst.PrintNodeData()
 }
