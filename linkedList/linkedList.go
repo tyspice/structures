@@ -11,7 +11,7 @@ type LinkedList struct {
 	head *node
 }
 
-func NewLinkedList(data string) LinkedList {
+func New(data string) LinkedList {
 	newNode := node{data: data, next: nil}
 	return LinkedList{head: &newNode}
 }

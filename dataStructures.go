@@ -3,7 +3,7 @@ package main
 import "github.com/tyspice/data-structures/linkedList"
 
 func main() {
-	lst := linkedList.NewLinkedList("Hello")
+	lst := linkedList.New("Hello")
 	lst.AddNode("snake")
 	lst.AddNode("poop")
 	lst.AddNode("chunder")
