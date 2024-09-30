@@ -1,9 +1,9 @@
 package main
 
-import "github.com/tyspice/data-structures/linkedList"
+import "github.com/tyspice/structures/linkedlist"
 
 func main() {
-	lst := linkedList.New("Hello")
+	lst := linkedlist.New("Hello")
 	lst.AddNode("snake")
 	lst.AddNode("poop")
 	lst.AddNode("chunder")
