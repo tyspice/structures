@@ -12,7 +12,7 @@ type ComparableList[T comparable] struct {
 	nil *ComparableNode[T]
 }
 
-func New[T comparable]() *ComparableList[T] {
+func NewComparableList[T comparable]() *ComparableList[T] {
 	sentinel := &ComparableNode[T]{}
 	sentinel.next = sentinel
 	sentinel.prev = sentinel

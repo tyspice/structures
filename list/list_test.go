@@ -10,8 +10,8 @@ var (
 	testData = []string{"first", "second", "third"}
 )
 
-func TestNew(t *testing.T) {
-	testLst = New[string]()
+func TestNewComparableList(t *testing.T) {
+	testLst = NewComparableList[string]()
 	d := testLst.nil.data
 	if d != "" {
 		t.Errorf(`expected %v but got %v`, "", d)
