@@ -2,6 +2,7 @@ package list
 
 type node[T any] struct {
 	next *node[T]
+	prev *node[T]
 	data T
 }
 
@@ -10,12 +11,13 @@ type LinkedList[T any] struct {
 }
 
 func New[T any](data T) LinkedList[T] {
-	newNode := node[T]{data: data, next: nil}
+	newNode := node[T]{data: data, next: nil, prev: nil}
 	return LinkedList[T]{head: &newNode}
 }
 
 func (lst *LinkedList[T]) AddNode(data T) {
-	newNode := node[T]{next: lst.head, data: data}
+	newNode := node[T]{next: lst.head, prev: nil, data: data}
+	lst.head.prev = &newNode
 	lst.head = &newNode
 }
 
