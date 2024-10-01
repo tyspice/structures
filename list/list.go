@@ -40,3 +40,8 @@ func (lst *L[T]) Search(data T) (n *N[T]) {
 	}
 	return nil
 }
+
+func (lst *L[T]) Delete(n *N[T]) {
+	n.prev.next = n.next
+	n.next.prev = n.prev
+}

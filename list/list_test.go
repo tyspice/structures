@@ -60,3 +60,16 @@ func TestL_Search(t *testing.T) {
 		t.Errorf(`expected next value of %v but got %v`, testData[2], nextData)
 	}
 }
+
+func TestL_Delete(t *testing.T) {
+	middle := testLst.Search(testData[1])
+	testLst.Delete(middle)
+	expected := []string{testData[0], testData[2]}
+	actual := []string{}
+	testLst.ForEach(func(d string) {
+		actual = append(actual, d)
+	})
+	if !slices.Equal(expected, actual) {
+		t.Errorf(`expected %v but got %v`, expected, actual)
+	}
+}
