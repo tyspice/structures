@@ -73,3 +73,22 @@ func TestL_Delete(t *testing.T) {
 		t.Errorf(`expected %v but got %v`, expected, actual)
 	}
 }
+
+func TestL_FindAndDelete(t *testing.T) {
+	err := testLst.FindAndDelete(testData[2])
+	if err != nil {
+		t.Fatal(`unable to find and delete value that should be findable`)
+	}
+	err = testLst.FindAndDelete(testData[2])
+	if err == nil {
+		t.Fatal(`found value that should have been deleted`)
+	}
+	expected := []string{testData[0]}
+	actual := []string{}
+	testLst.ForEach(func(s string) {
+		actual = append(actual, s)
+	})
+	if !slices.Equal(expected, actual) {
+		t.Errorf(`expected %v but found %v`, expected, actual)
+	}
+}
