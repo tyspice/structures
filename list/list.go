@@ -1,32 +1,41 @@
 package list
 
-type Node[T any] struct {
-	next *Node[T]
-	prev *Node[T]
+type N[T comparable] struct {
+	next *N[T]
+	prev *N[T]
 	data T
 }
 
-type LinkedList[T any] struct {
-	nil *Node[T]
+type L[T comparable] struct {
+	nil *N[T]
 }
 
-func New[T any]() *LinkedList[T] {
-	sentinel := &Node[T]{}
+func New[T comparable]() *L[T] {
+	sentinel := &N[T]{}
 	sentinel.next = sentinel
 	sentinel.prev = sentinel
-	return &LinkedList[T]{nil: sentinel}
+	return &L[T]{nil: sentinel}
 }
 
-func (lst *LinkedList[T]) Insert(data T) {
-	n := &Node[T]{data: data}
+func (lst *L[T]) Insert(data T) {
+	n := &N[T]{data: data}
 	n.next = lst.nil.next
 	n.prev = lst.nil
 	lst.nil.next.prev = n
 	lst.nil.next = n
 }
 
-func (lst *LinkedList[T]) ForEach(fn func(T)) {
+func (lst *L[T]) ForEach(fn func(T)) {
 	for x := lst.nil.next; x != lst.nil; x = x.next {
 		fn(x.data)
 	}
+}
+
+func (lst *L[T]) Search(data T) (n *N[T]) {
+	for x := lst.nil.next; x != lst.nil; x = x.next {
+		if data == x.data {
+			return x
+		}
+	}
+	return nil
 }
