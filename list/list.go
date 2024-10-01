@@ -7,24 +7,26 @@ type Node[T any] struct {
 }
 
 type LinkedList[T any] struct {
-	head *Node[T]
+	nil *Node[T]
 }
 
-func New[T any](data T) LinkedList[T] {
-	newNode := Node[T]{data: data, next: nil, prev: nil}
-	return LinkedList[T]{head: &newNode}
+func New[T any]() *LinkedList[T] {
+	sentinel := &Node[T]{}
+	sentinel.next = sentinel
+	sentinel.prev = sentinel
+	return &LinkedList[T]{nil: sentinel}
 }
 
 func (lst *LinkedList[T]) Insert(data T) {
-	newNode := Node[T]{next: lst.head, prev: nil, data: data}
-	lst.head.prev = &newNode
-	lst.head = &newNode
+	n := &Node[T]{data: data}
+	n.next = lst.nil.next
+	n.prev = lst.nil
+	lst.nil.next.prev = n
+	lst.nil.next = n
 }
 
 func (lst *LinkedList[T]) ForEach(fn func(T)) {
-	currentNode := lst.head
-	for currentNode != nil {
-		fn(currentNode.data)
-		currentNode = currentNode.next
+	for x := lst.nil.next; x != lst.nil; x = x.next {
+		fn(x.data)
 	}
 }

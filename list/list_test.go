@@ -6,23 +6,24 @@ import (
 )
 
 var (
-	testLst  LinkedList[string]
+	testLst  *LinkedList[string]
 	testData = []string{"first", "second", "third"}
 )
 
 func TestNew(t *testing.T) {
-	testLst = New(testData[2])
-	d := testLst.head.data
-	if d != testData[2] {
-		t.Errorf(`expected %v but got %v`, testData[2], d)
+	testLst = New[string]()
+	d := testLst.nil.data
+	if d != "" {
+		t.Errorf(`expected %v but got %v`, "", d)
 	}
 }
 
 func TestInsert(t *testing.T) {
+	testLst.Insert(testData[2])
 	testLst.Insert(testData[1])
 	testLst.Insert(testData[0])
-	head := testLst.head
-	second := testLst.head.next
+	head := testLst.nil.next
+	second := head.next
 	third := second.next
 	nodes := []string{head.data, second.data, third.data}
 	for i := range testData {
@@ -43,7 +44,7 @@ func TestForEach(t *testing.T) {
 		t.Errorf(`expected %v but got %v`, testData, out)
 	}
 
-	if testLst.head.data != testData[0] {
-		t.Errorf(`Head pointer was mutated. Expected %s but got %s`, testData[0], testLst.head.data)
+	if testLst.nil.next.data != testData[0] {
+		t.Errorf(`Head pointer was mutated. Expected %s but got %s`, testData[0], testLst.nil.next.data)
 	}
 }
