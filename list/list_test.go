@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	testLst  *L[string]
+	testLst  *ComparableList[string]
 	testData = []string{"first", "second", "third"}
 )
 

@@ -2,25 +2,25 @@ package list
 
 import "errors"
 
-type N[T comparable] struct {
-	next *N[T]
-	prev *N[T]
+type ComparableNode[T comparable] struct {
+	next *ComparableNode[T]
+	prev *ComparableNode[T]
 	data T
 }
 
-type L[T comparable] struct {
-	nil *N[T]
+type ComparableList[T comparable] struct {
+	nil *ComparableNode[T]
 }
 
-func New[T comparable]() *L[T] {
-	sentinel := &N[T]{}
+func New[T comparable]() *ComparableList[T] {
+	sentinel := &ComparableNode[T]{}
 	sentinel.next = sentinel
 	sentinel.prev = sentinel
-	return &L[T]{nil: sentinel}
+	return &ComparableList[T]{nil: sentinel}
 }
 
-func (lst *L[T]) Insert(data T) *N[T] {
-	n := &N[T]{data: data}
+func (lst *ComparableList[T]) Insert(data T) *ComparableNode[T] {
+	n := &ComparableNode[T]{data: data}
 	n.next = lst.nil.next
 	n.prev = lst.nil
 	lst.nil.next.prev = n
@@ -28,13 +28,13 @@ func (lst *L[T]) Insert(data T) *N[T] {
 	return n
 }
 
-func (lst *L[T]) ForEach(fn func(T)) {
+func (lst *ComparableList[T]) ForEach(fn func(T)) {
 	for x := lst.nil.next; x != lst.nil; x = x.next {
 		fn(x.data)
 	}
 }
 
-func (lst *L[T]) Find(data T) *N[T] {
+func (lst *ComparableList[T]) Find(data T) *ComparableNode[T] {
 	for x := lst.nil.next; x != lst.nil; x = x.next {
 		if data == x.data {
 			return x
@@ -43,12 +43,12 @@ func (lst *L[T]) Find(data T) *N[T] {
 	return nil
 }
 
-func (lst *L[T]) Delete(n *N[T]) {
+func (lst *ComparableList[T]) Delete(n *ComparableNode[T]) {
 	n.prev.next = n.next
 	n.next.prev = n.prev
 }
 
-func (lst *L[T]) FindAndDelete(data T) error {
+func (lst *ComparableList[T]) FindAndDelete(data T) error {
 	n := lst.Find(data)
 	if n == nil {
 		return errors.New("item not found")
