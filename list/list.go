@@ -1,22 +1,22 @@
 package list
 
-type node[T any] struct {
-	next *node[T]
-	prev *node[T]
+type Node[T any] struct {
+	next *Node[T]
+	prev *Node[T]
 	data T
 }
 
 type LinkedList[T any] struct {
-	head *node[T]
+	head *Node[T]
 }
 
 func New[T any](data T) LinkedList[T] {
-	newNode := node[T]{data: data, next: nil, prev: nil}
+	newNode := Node[T]{data: data, next: nil, prev: nil}
 	return LinkedList[T]{head: &newNode}
 }
 
 func (lst *LinkedList[T]) Insert(data T) {
-	newNode := node[T]{next: lst.head, prev: nil, data: data}
+	newNode := Node[T]{next: lst.head, prev: nil, data: data}
 	lst.head.prev = &newNode
 	lst.head = &newNode
 }
