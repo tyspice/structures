@@ -46,8 +46,8 @@ func TestL_ForEach(t *testing.T) {
 	}
 }
 
-func TestL_Search(t *testing.T) {
-	middle := testLst.Search(testData[1])
+func TestL_Find(t *testing.T) {
+	middle := testLst.Find(testData[1])
 	if middle == nil {
 		t.Fatal(`Result was nil`)
 	}
@@ -62,7 +62,7 @@ func TestL_Search(t *testing.T) {
 }
 
 func TestL_Delete(t *testing.T) {
-	middle := testLst.Search(testData[1])
+	middle := testLst.Find(testData[1])
 	testLst.Delete(middle)
 	expected := []string{testData[0], testData[2]}
 	actual := []string{}

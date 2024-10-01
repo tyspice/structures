@@ -32,7 +32,7 @@ func (lst *L[T]) ForEach(fn func(T)) {
 	}
 }
 
-func (lst *L[T]) Search(data T) (n *N[T]) {
+func (lst *L[T]) Find(data T) (n *N[T]) {
 	for x := lst.nil.next; x != lst.nil; x = x.next {
 		if data == x.data {
 			return x
