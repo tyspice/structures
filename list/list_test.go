@@ -18,7 +18,7 @@ func TestNew(t *testing.T) {
 	}
 }
 
-func TestL_Insert(t *testing.T) {
+func TestComparableList_Insert(t *testing.T) {
 	third := testLst.Insert(testData[2])
 	second := testLst.Insert(testData[1])
 	head := testLst.Insert(testData[0])
@@ -30,7 +30,7 @@ func TestL_Insert(t *testing.T) {
 	}
 }
 
-func TestL_ForEach(t *testing.T) {
+func TestComparableList_ForEach(t *testing.T) {
 	out := make([]string, 0)
 
 	testLst.ForEach(func(s string) {
@@ -46,7 +46,7 @@ func TestL_ForEach(t *testing.T) {
 	}
 }
 
-func TestL_Find(t *testing.T) {
+func TestComparableList_Find(t *testing.T) {
 	middle := testLst.Find(testData[1])
 	if middle == nil {
 		t.Fatal(`Result was nil`)
@@ -61,7 +61,7 @@ func TestL_Find(t *testing.T) {
 	}
 }
 
-func TestL_Delete(t *testing.T) {
+func TestComparableList_Delete(t *testing.T) {
 	middle := testLst.Find(testData[1])
 	testLst.Delete(middle)
 	expected := []string{testData[0], testData[2]}
@@ -74,7 +74,7 @@ func TestL_Delete(t *testing.T) {
 	}
 }
 
-func TestL_FindAndDelete(t *testing.T) {
+func TestComparableList_FindAndDelete(t *testing.T) {
 	err := testLst.FindAndDelete(testData[2])
 	if err != nil {
 		t.Fatal(`unable to find and delete value that should be findable`)
