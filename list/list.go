@@ -15,13 +15,13 @@ func New[T any](data T) LinkedList[T] {
 	return LinkedList[T]{head: &newNode}
 }
 
-func (lst *LinkedList[T]) AddNode(data T) {
+func (lst *LinkedList[T]) Insert(data T) {
 	newNode := node[T]{next: lst.head, prev: nil, data: data}
 	lst.head.prev = &newNode
 	lst.head = &newNode
 }
 
-func (lst *LinkedList[T]) ForEachNode(fn func(T)) {
+func (lst *LinkedList[T]) ForEach(fn func(T)) {
 	currentNode := lst.head
 	for currentNode != nil {
 		fn(currentNode.data)
