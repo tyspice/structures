@@ -19,12 +19,9 @@ func TestNew(t *testing.T) {
 }
 
 func TestL_Insert(t *testing.T) {
-	testLst.Insert(testData[2])
-	testLst.Insert(testData[1])
-	testLst.Insert(testData[0])
-	head := testLst.nil.next
-	second := head.next
-	third := second.next
+	third := testLst.Insert(testData[2])
+	second := testLst.Insert(testData[1])
+	head := testLst.Insert(testData[0])
 	nodes := []string{head.data, second.data, third.data}
 	for i := range testData {
 		if nodes[i] != testData[i] {

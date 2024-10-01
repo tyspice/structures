@@ -17,12 +17,13 @@ func New[T comparable]() *L[T] {
 	return &L[T]{nil: sentinel}
 }
 
-func (lst *L[T]) Insert(data T) {
+func (lst *L[T]) Insert(data T) *N[T] {
 	n := &N[T]{data: data}
 	n.next = lst.nil.next
 	n.prev = lst.nil
 	lst.nil.next.prev = n
 	lst.nil.next = n
+	return n
 }
 
 func (lst *L[T]) ForEach(fn func(T)) {
