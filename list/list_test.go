@@ -5,22 +5,45 @@ import (
 	"testing"
 )
 
-func TestAddingAndReading(t *testing.T) {
-	in := []string{"first", "second", "third"}
+var (
+	testLst  LinkedList[string]
+	testData = []string{"first", "second", "third"}
+)
+
+func TestNew(t *testing.T) {
+	testLst = New(testData[2])
+	d := testLst.head.data
+	if d != testData[2] {
+		t.Errorf(`expected %v but got %v`, testData[2], d)
+	}
+}
+
+func TestInsert(t *testing.T) {
+	testLst.Insert(testData[1])
+	testLst.Insert(testData[0])
+	head := testLst.head
+	second := testLst.head.next
+	third := second.next
+	nodes := []string{head.data, second.data, third.data}
+	for i := range testData {
+		if nodes[i] != testData[i] {
+			t.Errorf(`expected %v but got %v`, testData[1], nodes[i])
+		}
+	}
+}
+
+func TestForEach(t *testing.T) {
 	out := make([]string, 0)
 
-	lst := New(in[2])
-	lst.Insert(in[1])
-	lst.Insert(in[0])
-	lst.ForEach(func(s string) {
+	testLst.ForEach(func(s string) {
 		out = append(out, s)
 	})
 
-	if !slices.Equal(in, out) {
-		t.Errorf(`expected %v but got %v`, in, out)
+	if !slices.Equal(testData, out) {
+		t.Errorf(`expected %v but got %v`, testData, out)
 	}
 
-	if lst.head.data != in[0] {
-		t.Errorf(`Head pointer was mutated. Expected %s but got %s`, in[0], lst.head.data)
+	if testLst.head.data != testData[0] {
+		t.Errorf(`Head pointer was mutated. Expected %s but got %s`, testData[0], testLst.head.data)
 	}
 }
