@@ -18,10 +18,10 @@ func TestNewComparable(t *testing.T) {
 	}
 }
 
-func TestComparable_Insert(t *testing.T) {
-	third := testLst.Insert(testData[2])
-	second := testLst.Insert(testData[1])
-	head := testLst.Insert(testData[0])
+func TestComparable_PushFront(t *testing.T) {
+	third := testLst.PushFront(testData[2])
+	second := testLst.PushFront(testData[1])
+	head := testLst.PushFront(testData[0])
 	nodes := []string{head.Data, second.Data, third.Data}
 	for i := range testData {
 		if nodes[i] != testData[i] {

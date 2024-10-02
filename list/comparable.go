@@ -19,7 +19,7 @@ func NewComparable[T comparable]() *Comparable[T] {
 	return &Comparable[T]{nil: sentinel}
 }
 
-func (lst *Comparable[T]) Insert(data T) *CNode[T] {
+func (lst *Comparable[T]) PushFront(data T) *CNode[T] {
 	n := &CNode[T]{Data: data}
 	n.next = lst.nil.next // New node's next points to the current first node
 	n.prev = lst.nil      // New node's prev points to the sentinel node
