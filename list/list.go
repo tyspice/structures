@@ -11,10 +11,7 @@ type List[T any] struct {
 }
 
 func NewList[T any]() *List[T] {
-	sentinel := &Element[T]{}
-	sentinel.next = sentinel
-	sentinel.prev = sentinel
-	return &List[T]{nil: sentinel}
+	return &List[T]{nil: newSentinal[T]()}
 }
 
 func (lst *List[T]) PushFront(value T) *Element[T] {

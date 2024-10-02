@@ -7,10 +7,7 @@ type ComparableList[T comparable] struct {
 }
 
 func NewComparableList[T comparable]() *ComparableList[T] {
-	sentinel := &Element[T]{}
-	sentinel.next = sentinel
-	sentinel.prev = sentinel
-	return &ComparableList[T]{List[T]{nil: sentinel}}
+	return &ComparableList[T]{List[T]{nil: newSentinal[T]()}}
 }
 
 func (lst *ComparableList[T]) Find(value T) *Element[T] {
