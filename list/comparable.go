@@ -5,7 +5,7 @@ import "errors"
 type CNode[T comparable] struct {
 	next *CNode[T]
 	prev *CNode[T]
-	data T
+	Data T
 }
 
 type Comparable[T comparable] struct {
@@ -20,23 +20,23 @@ func NewComparable[T comparable]() *Comparable[T] {
 }
 
 func (lst *Comparable[T]) Insert(data T) *CNode[T] {
-	n := &CNode[T]{data: data}
-	n.next = lst.nil.next
-	n.prev = lst.nil
-	lst.nil.next.prev = n
-	lst.nil.next = n
+	n := &CNode[T]{Data: data}
+	n.next = lst.nil.next // New node's next points to the current first node
+	n.prev = lst.nil      // New node's prev points to the sentinel node
+	lst.nil.next.prev = n // Current first node's prev points to the new node
+	lst.nil.next = n      // Sentinel node's next points to the new node
 	return n
 }
 
 func (lst *Comparable[T]) ForEach(fn func(T)) {
 	for x := lst.nil.next; x != lst.nil; x = x.next {
-		fn(x.data)
+		fn(x.Data)
 	}
 }
 
 func (lst *Comparable[T]) Find(data T) *CNode[T] {
 	for x := lst.nil.next; x != lst.nil; x = x.next {
-		if data == x.data {
+		if data == x.Data {
 			return x
 		}
 	}

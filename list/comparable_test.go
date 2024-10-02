@@ -12,7 +12,7 @@ var (
 
 func TestNewComparable(t *testing.T) {
 	testLst = NewComparable[string]()
-	d := testLst.nil.data
+	d := testLst.nil.Data
 	if d != "" {
 		t.Errorf(`expected %v but got %v`, "", d)
 	}
@@ -22,7 +22,7 @@ func TestComparable_Insert(t *testing.T) {
 	third := testLst.Insert(testData[2])
 	second := testLst.Insert(testData[1])
 	head := testLst.Insert(testData[0])
-	nodes := []string{head.data, second.data, third.data}
+	nodes := []string{head.Data, second.Data, third.Data}
 	for i := range testData {
 		if nodes[i] != testData[i] {
 			t.Errorf(`expected %v but got %v`, testData[1], nodes[i])
@@ -41,8 +41,8 @@ func TestComparable_ForEach(t *testing.T) {
 		t.Errorf(`expected %v but got %v`, testData, out)
 	}
 
-	if testLst.nil.next.data != testData[0] {
-		t.Errorf(`Head pointer was mutated. Expected %s but got %s`, testData[0], testLst.nil.next.data)
+	if testLst.nil.next.Data != testData[0] {
+		t.Errorf(`Head pointer was mutated. Expected %s but got %s`, testData[0], testLst.nil.next.Data)
 	}
 }
 
@@ -51,8 +51,8 @@ func TestComparable_Find(t *testing.T) {
 	if middle == nil {
 		t.Fatal(`Result was nil`)
 	}
-	prevData := middle.prev.data
-	nextData := middle.next.data
+	prevData := middle.prev.Data
+	nextData := middle.next.Data
 	if prevData != testData[0] {
 		t.Errorf(`expected prev value of %v but got %v`, testData[0], prevData)
 	}
