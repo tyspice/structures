@@ -60,3 +60,15 @@ func TestList_Delete(t *testing.T) {
 		t.Errorf(`expected %v but got %v`, expected, actual)
 	}
 }
+
+func TestList_PushBack(t *testing.T) {
+	testList.PushBack(testListData[1])
+	expected := []string{testListData[0], testListData[2], testListData[1]}
+	actual := []string{}
+	testList.ForEach(func(d string) {
+		actual = append(actual, d)
+	})
+	if !slices.Equal(expected, actual) {
+		t.Errorf(`expected %v but got %v`, expected, actual)
+	}
+}
