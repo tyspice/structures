@@ -14,6 +14,23 @@ func NewList[T any]() *List[T] {
 	return &List[T]{nil: newSentinal[T]()}
 }
 
+// TODO: needs test
+func (lst *List[T]) Front() *Element[T] {
+	if lst.nil.next == lst.nil {
+		return nil
+	}
+	return lst.nil.next
+}
+
+// TODO: needs test
+func (lst *List[T]) Back() *Element[T] {
+	if lst.nil.prev == lst.nil {
+		return nil
+	}
+	return lst.nil.prev
+}
+
+// TODO: needs test
 func (lst *List[T]) PushFront(value T) *Element[T] {
 	n := &Element[T]{Value: value}
 	n.next = lst.nil.next // New node's next points to the current first node
