@@ -23,6 +23,15 @@ func (lst *List[T]) PushFront(value T) *Element[T] {
 	return n
 }
 
+func (lst *List[T]) PushBack(value T) *Element[T] {
+	n := &Element[T]{Value: value}
+	n.next = lst.nil      // New node's next points to the sentinel
+	n.prev = lst.nil.prev // New node's prev points to the current last node
+	lst.nil.prev = n      // Sentinel node's prev points to the new node
+	lst.nil.prev.next = n // Current last node's next points to the new node
+	return n
+}
+
 func (lst *List[T]) ForEach(fn func(T)) {
 	for x := lst.nil.next; x != lst.nil; x = x.next {
 		fn(x.Value)
