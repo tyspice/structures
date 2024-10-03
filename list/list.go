@@ -6,6 +6,14 @@ type Element[T any] struct {
 	Value T
 }
 
+func (e *Element[T]) Next() *Element[T] {
+	return e.next
+}
+
+func (e *Element[T]) Prev() *Element[T] {
+	return e.prev
+}
+
 type List[T any] struct {
 	nil *Element[T]
 }
