@@ -22,7 +22,6 @@ func NewList[T any]() *List[T] {
 	return &List[T]{nil: newSentinal[T]()}
 }
 
-// TODO: needs test
 func (lst *List[T]) Front() *Element[T] {
 	if lst.nil.next == lst.nil {
 		return nil
@@ -30,7 +29,6 @@ func (lst *List[T]) Front() *Element[T] {
 	return lst.nil.next
 }
 
-// TODO: needs test
 func (lst *List[T]) Back() *Element[T] {
 	if lst.nil.prev == lst.nil {
 		return nil

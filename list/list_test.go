@@ -72,3 +72,17 @@ func TestList_PushBack(t *testing.T) {
 		t.Errorf(`expected %v but got %v`, expected, actual)
 	}
 }
+
+func TestList_Front(t *testing.T) {
+	value := testList.Front().Value
+	if value != testListData[0] {
+		t.Errorf(`expected %v but got %v`, testListData[0], value)
+	}
+}
+
+func TestList_Back(t *testing.T) {
+	value := testList.Back().Value
+	if value != testListData[1] {
+		t.Errorf(`expected %v but got %v`, testListData[1], value)
+	}
+}
