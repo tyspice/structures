@@ -16,10 +16,15 @@ func (e *Element[T]) Prev() *Element[T] {
 
 type List[T any] struct {
 	nil *Element[T]
+	len int
 }
 
 func NewList[T any]() *List[T] {
 	return &List[T]{nil: newSentinal[T]()}
+}
+
+func (lst *List[T]) Len() int {
+	return lst.len
 }
 
 func (lst *List[T]) Front() *Element[T] {
@@ -42,6 +47,7 @@ func (lst *List[T]) PushFront(value T) *Element[T] {
 	n.prev = lst.nil      // New node's prev points to the sentinel node
 	lst.nil.next.prev = n // Current first node's prev points to the new node
 	lst.nil.next = n      // Sentinel node's next points to the new node
+	lst.len++
 	return n
 }
 
@@ -51,6 +57,7 @@ func (lst *List[T]) PushBack(value T) *Element[T] {
 	n.prev = lst.nil.prev // New node's prev points to the current last node
 	lst.nil.prev.next = n // Current last node's next points to the new node
 	lst.nil.prev = n      // Sentinel node's prev points to the new node
+	lst.len++
 	return n
 }
 
@@ -63,4 +70,7 @@ func (lst *List[T]) ForEach(fn func(T)) {
 func (lst *List[T]) Remove(n *Element[T]) {
 	n.prev.next = n.next
 	n.next.prev = n.prev
+	if lst.len > 0 {
+		lst.len--
+	}
 }
