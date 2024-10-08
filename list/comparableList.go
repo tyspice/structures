@@ -24,6 +24,6 @@ func (lst *ComparableList[T]) FindAndDelete(value T) error {
 	if n == nil {
 		return errors.New("item not found")
 	}
-	lst.Delete(n)
+	lst.Remove(n)
 	return nil
 }

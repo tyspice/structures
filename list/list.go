@@ -60,7 +60,7 @@ func (lst *List[T]) ForEach(fn func(T)) {
 	}
 }
 
-func (lst *List[T]) Delete(n *Element[T]) {
+func (lst *List[T]) Remove(n *Element[T]) {
 	n.prev.next = n.next
 	n.next.prev = n.prev
 }

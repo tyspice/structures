@@ -49,8 +49,8 @@ func TestList_ForEach(t *testing.T) {
 	}
 }
 
-func TestList_Delete(t *testing.T) {
-	testList.Delete(MiddleElementRef)
+func TestList_Remove(t *testing.T) {
+	testList.Remove(MiddleElementRef)
 	expected := []string{testListData[0], testListData[2]}
 	actual := []string{}
 	testList.ForEach(func(d string) {
