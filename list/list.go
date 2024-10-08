@@ -23,6 +23,13 @@ func NewList[T any]() *List[T] {
 	return &List[T]{nil: newSentinal[T]()}
 }
 
+// TODO: test Init
+func (lst *List[T]) Init() {
+	lst.nil = newSentinal[T]()
+	lst.len = 0
+}
+
+// TODO: test length logic
 func (lst *List[T]) Len() int {
 	return lst.len
 }
