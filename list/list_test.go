@@ -11,7 +11,7 @@ const (
 	third  = "third"
 )
 
-func testSetup(d ...string) *List[string] {
+func testListSetup(d ...string) *List[string] {
 	if len(d) == 0 {
 		d = []string{first, second, third}
 	}
@@ -32,7 +32,7 @@ func TestNewList(t *testing.T) {
 
 func TestList_PushBack(t *testing.T) {
 	expected := []string{first, third, second}
-	lst := testSetup(first, third, second)
+	lst := testListSetup(first, third, second)
 	first := lst.nil.next
 	second := first.next
 	third := second.next
@@ -51,7 +51,7 @@ func TestList_PushFront(t *testing.T) {
 	data := []string{first, second, third}
 	for i := range data {
 		if nodes[i] != data[i] {
-			t.Errorf(`expected %v but got %v`, testComparableListData[1], nodes[i])
+			t.Errorf(`expected %v but got %v`, data[i], nodes[i])
 		}
 	}
 }
@@ -59,7 +59,7 @@ func TestList_PushFront(t *testing.T) {
 func TestList_ForEach(t *testing.T) {
 	out := []string{}
 	expected := []string{first, second, third}
-	lst := testSetup()
+	lst := testListSetup()
 	lst.ForEach(func(s string) {
 		out = append(out, s)
 	})
@@ -74,7 +74,7 @@ func TestList_ForEach(t *testing.T) {
 }
 
 func TestList_Remove(t *testing.T) {
-	lst := testSetup()
+	lst := testListSetup()
 	middle := lst.nil.next.next
 	lst.Remove(middle)
 	expected := []string{first, third}
@@ -88,7 +88,7 @@ func TestList_Remove(t *testing.T) {
 }
 
 func TestList_Front(t *testing.T) {
-	lst := testSetup()
+	lst := testListSetup()
 	value := lst.Front().Value
 	if value != first {
 		t.Errorf(`expected %v but got %v`, first, value)
@@ -96,7 +96,7 @@ func TestList_Front(t *testing.T) {
 }
 
 func TestList_Back(t *testing.T) {
-	lst := testSetup()
+	lst := testListSetup()
 	value := lst.Back().Value
 	if value != third {
 		t.Errorf(`expected %v but got %v`, third, value)
