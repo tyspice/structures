@@ -5,50 +5,56 @@ import (
 	"testing"
 )
 
-var (
-	testComparableList     *ComparableList[string]
-	testComparableListData = []string{"first", "second", "third"}
-)
+func testComparableListSetup() *ComparableList[string] {
+	lst := NewComparableList[string]()
+	d := []string{first, second, third}
+	for _, e := range d {
+		lst.PushBack(e)
+	}
+	return lst
+}
 
 func TestNewComparableList(t *testing.T) {
-	testComparableList = NewComparableList[string]()
-	d := testComparableList.nil.Value
+	lst := NewComparableList[string]()
+	d := lst.nil.Value
 	if d != "" {
 		t.Errorf(`expected %v but got %v`, "", d)
 	}
 }
 
 func TestComparableList_Find(t *testing.T) {
-	testComparableList.PushFront(testComparableListData[2])
-	testComparableList.PushFront(testComparableListData[1])
-	testComparableList.PushFront(testComparableListData[0])
+	lst := testComparableListSetup()
+	lst.PushBack(first)
+	lst.PushBack(second)
+	lst.PushBack(third)
 
-	middle := testComparableList.Find(testComparableListData[1])
+	middle := lst.Find(second)
 	if middle == nil {
 		t.Fatal(`Result was nil`)
 	}
 	prevValue := middle.prev.Value
 	nextValue := middle.next.Value
-	if prevValue != testComparableListData[0] {
-		t.Errorf(`expected prev value of %v but got %v`, testComparableListData[0], prevValue)
+	if prevValue != first {
+		t.Errorf(`expected prev value of %v but got %v`, first, prevValue)
 	}
-	if nextValue != testComparableListData[2] {
-		t.Errorf(`expected next value of %v but got %v`, testComparableListData[2], nextValue)
+	if nextValue != third {
+		t.Errorf(`expected next value of %v but got %v`, third, nextValue)
 	}
 }
 
 func TestComparableList_FindAndDelete(t *testing.T) {
-	err := testComparableList.FindAndDelete(testComparableListData[2])
+	lst := testComparableListSetup()
+	err := lst.FindAndDelete(third)
 	if err != nil {
 		t.Fatal(`unable to find and delete value that should be findable`)
 	}
-	err = testComparableList.FindAndDelete(testComparableListData[2])
+	err = lst.FindAndDelete(third)
 	if err == nil {
 		t.Fatal(`found value that should have been deleted`)
 	}
-	expected := []string{testComparableListData[0], testComparableListData[1]}
+	expected := []string{first, second}
 	actual := []string{}
-	testComparableList.ForEach(func(s string) {
+	lst.ForEach(func(s string) {
 		actual = append(actual, s)
 	})
 	if !slices.Equal(expected, actual) {
