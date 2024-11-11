@@ -5,29 +5,52 @@ import (
 	"testing"
 )
 
-var (
-	testList         *List[string]
-	testListData     = []string{"first", "second", "third"}
-	headElementRef   *Element[string]
-	MiddleElementRef *Element[string]
-	lastElementRef   *Element[string]
+const (
+	first  = "first"
+	second = "second"
+	third  = "third"
 )
 
+func testSetup(d ...string) *List[string] {
+	if len(d) == 0 {
+		d = []string{first, second, third}
+	}
+	lst := NewList[string]()
+	for _, e := range d {
+		lst.PushBack(e)
+	}
+	return lst
+}
+
 func TestNewList(t *testing.T) {
-	testList = NewList[string]()
-	d := testList.nil.Value
+	lst := NewList[string]()
+	d := lst.nil.Value
 	if d != "" {
 		t.Errorf(`expected %v but got %v`, "", d)
 	}
 }
 
+func TestList_PushBack(t *testing.T) {
+	expected := []string{first, third, second}
+	lst := testSetup(first, third, second)
+	first := lst.nil.next
+	second := first.next
+	third := second.next
+	actual := []string{first.Value, second.Value, third.Value}
+	if !slices.Equal(expected, actual) {
+		t.Errorf(`expected %v but got %v`, expected, actual)
+	}
+}
+
 func TestList_PushFront(t *testing.T) {
-	lastElementRef = testList.PushFront(testComparableListData[2])
-	MiddleElementRef = testList.PushFront(testComparableListData[1])
-	headElementRef = testList.PushFront(testComparableListData[0])
+	lst := NewList[string]()
+	lastElementRef := lst.PushFront(third)
+	MiddleElementRef := lst.PushFront(second)
+	headElementRef := lst.PushFront(first)
 	nodes := []string{headElementRef.Value, MiddleElementRef.Value, lastElementRef.Value}
-	for i := range testListData {
-		if nodes[i] != testListData[i] {
+	data := []string{first, second, third}
+	for i := range data {
+		if nodes[i] != data[i] {
 			t.Errorf(`expected %v but got %v`, testComparableListData[1], nodes[i])
 		}
 	}
@@ -35,37 +58,28 @@ func TestList_PushFront(t *testing.T) {
 
 func TestList_ForEach(t *testing.T) {
 	out := []string{}
-
-	testList.ForEach(func(s string) {
+	expected := []string{first, second, third}
+	lst := testSetup()
+	lst.ForEach(func(s string) {
 		out = append(out, s)
 	})
 
-	if !slices.Equal(testListData, out) {
-		t.Errorf(`expected %v but got %v`, testListData, out)
+	if !slices.Equal(expected, out) {
+		t.Errorf(`expected %v but got %v`, expected, out)
 	}
 
-	if testList.nil.next.Value != testListData[0] {
-		t.Errorf(`Head pointer was mutated. Expected %s but got %s`, testListData[0], testList.nil.next.Value)
+	if lst.nil.next.Value != expected[0] {
+		t.Errorf(`Head pointer was mutated. Expected %s but got %s`, expected[0], lst.nil.next.Value)
 	}
 }
 
 func TestList_Remove(t *testing.T) {
-	testList.Remove(MiddleElementRef)
-	expected := []string{testListData[0], testListData[2]}
+	lst := testSetup()
+	middle := lst.nil.next.next
+	lst.Remove(middle)
+	expected := []string{first, third}
 	actual := []string{}
-	testList.ForEach(func(d string) {
-		actual = append(actual, d)
-	})
-	if !slices.Equal(expected, actual) {
-		t.Errorf(`expected %v but got %v`, expected, actual)
-	}
-}
-
-func TestList_PushBack(t *testing.T) {
-	testList.PushBack(testListData[1])
-	expected := []string{testListData[0], testListData[2], testListData[1]}
-	actual := []string{}
-	testList.ForEach(func(d string) {
+	lst.ForEach(func(d string) {
 		actual = append(actual, d)
 	})
 	if !slices.Equal(expected, actual) {
@@ -74,15 +88,17 @@ func TestList_PushBack(t *testing.T) {
 }
 
 func TestList_Front(t *testing.T) {
-	value := testList.Front().Value
-	if value != testListData[0] {
-		t.Errorf(`expected %v but got %v`, testListData[0], value)
+	lst := testSetup()
+	value := lst.Front().Value
+	if value != first {
+		t.Errorf(`expected %v but got %v`, first, value)
 	}
 }
 
 func TestList_Back(t *testing.T) {
-	value := testList.Back().Value
-	if value != testListData[1] {
-		t.Errorf(`expected %v but got %v`, testListData[1], value)
+	lst := testSetup()
+	value := lst.Back().Value
+	if value != third {
+		t.Errorf(`expected %v but got %v`, third, value)
 	}
 }
