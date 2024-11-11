@@ -29,7 +29,6 @@ func (lst *List[T]) Init() {
 	lst.len = 0
 }
 
-// TODO: test length logic
 func (lst *List[T]) Len() int {
 	return lst.len
 }

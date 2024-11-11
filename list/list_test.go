@@ -102,3 +102,14 @@ func TestList_Back(t *testing.T) {
 		t.Errorf(`expected %v but got %v`, third, value)
 	}
 }
+
+func TestList_Len(t *testing.T) {
+	lst := testListSetup(first, second)
+	if lst.Len() != 2 {
+		t.Errorf(`expected %v but got %v`, 2, lst.Len())
+	}
+	lst.PushBack(third)
+	if lst.Len() != 3 {
+		t.Errorf(`expected %v but got %v`, 3, lst.Len())
+	}
+}
