@@ -20,12 +20,12 @@ type List[T any] struct {
 }
 
 func NewList[T any]() *List[T] {
-	return &List[T]{nil: newSentinal[T]()}
+	return &List[T]{nil: newSentinel[T]()}
 }
 
 // TODO: test Init
 func (lst *List[T]) Init() {
-	lst.nil = newSentinal[T]()
+	lst.nil = newSentinel[T]()
 	lst.len = 0
 }
 

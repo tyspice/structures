@@ -1,6 +1,6 @@
 package list
 
-func newSentinal[T any]() *Element[T] {
+func newSentinel[T any]() *Element[T] {
 	s := &Element[T]{}
 	s.next = s
 	s.prev = s

@@ -7,7 +7,7 @@ type ComparableList[T comparable] struct {
 }
 
 func NewComparableList[T comparable]() *ComparableList[T] {
-	return &ComparableList[T]{List[T]{nil: newSentinal[T]()}}
+	return &ComparableList[T]{List[T]{nil: newSentinel[T]()}}
 }
 
 func (lst *ComparableList[T]) Find(value T) *Element[T] {
